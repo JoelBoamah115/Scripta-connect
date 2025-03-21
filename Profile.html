@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .profile-container {
+            display: flex;
+            gap: 20px;
+            max-width: 900px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .profile-card {
+            flex: 2;
+            padding: 20px;
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .profile-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid #007bff;
+            cursor: pointer;
+        }
+        .profile-info h2 {
+            margin: 0;
+        }
+        .profile-section {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+        .edit-btn, .logout-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .edit-btn:hover, .logout-btn:hover {
+            background:#007bff;
+        }
+        .sidebar {
+            flex: 1;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .sidebar-item {
+            padding: 10px;
+            margin: 10px 0;
+            background: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .sidebar-item:hover {
+            background: #ddd;
+        }
+        .logout-btn {
+            width: 100%;
+            color: white;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-card">
+            <div class="profile-header">
+                <img src="avatar.png" alt="Profile avatar" class="profile-avatar" id="avatar">
+                <input type="file" id="avatarUpload" class="hidden" accept="image/*">
+                <div class="profile-info">
+                    <h2 id="name">John Doe</h2>
+                    <p>Patient ID: #12345678</p>
+                </div>
+            </div>
+            
+            <div class="profile-section">
+                <h3>Personal Information</h3>
+                <p><strong>Date of Birth:</strong> <span id="dob">January 15, 1980</span></p>
+                <p><strong>Gender:</strong> <span id="gender">Male</span></p>
+                <p><strong>Blood Type:</strong> <span id="blood">O+</span></p>
+                <button class="edit-btn" onclick="editField('dob', 'gender', 'blood')">Edit</button>
+            </div>
+
+            <div class="profile-section">
+                <h3>Contact Information</h3>
+                <p><strong>Email:</strong> <span id="email">johndoe@example.com</span></p>
+                <p><strong>Phone:</strong> <span id="phone">(555) 123-4567</span></p>
+                <p><strong>Address:</strong> <span id="address">123 Main St, Anytown, CA 12345</span></p>
+                <button class="edit-btn" onclick="editField('email', 'phone', 'address')">Edit</button>
+            </div>
+        </div>
+        
+        <div class="sidebar">
+            <div class="sidebar-item"><a href="Settings.html">⚙️ Account Settings</div></a>
+            <div class="sidebar-item"><a href="Privacy.html">🔒 Privacy & Security</div>
+            <div class="sidebar-item"><a href="support.html">💬 Support</div></a>
+            <button class="logout-btn" onclick="logout()"><a href="sign-in.html">🚪 Logout</button>
+        </div>
+    </div>
+
+    <script>
+        function editField(...fields) {
+            fields.forEach(field => {
+                let current = document.getElementById(field);
+                let newValue = prompt(`Enter new value for ${field.replace(/_/g, ' ')}`, current.innerText);
+                if (newValue) current.innerText = newValue;
+            });
+        }
+
+        function logout() {
+            alert("You have been logged out!");
+            window.location.href = "login.html"; 
+        }
+
+        document.getElementById('avatar').addEventListener('click', function() {
+            document.getElementById('avatarUpload').click();
+        });
+
+        document.getElementById('avatarUpload').addEventListener('change', function(event) {
+            let file = event.target.files[0];
+            if (file) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>

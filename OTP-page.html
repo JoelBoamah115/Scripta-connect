@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: rgb(241, 241, 241);
+        }
+        .otp-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 300px;
+        }
+        .otp-container h2 {
+            margin-bottom: 10px;
+        }
+        .otp-input {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .otp-input input {
+            width: 40px;
+            height: 50px;
+            text-align: center;
+            font-size: 20px;
+            border: 2px solid #4c67ff;
+            border-radius: 5px;
+            outline: none;
+        }
+        .otp-input input:focus {
+            border-color: #b24cff;
+        }
+        button {
+            background: #4c67ff;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #b24cff;
+        }
+        .message {
+            margin-top: 10px;
+            font-weight: bold;
+            display: none;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="otp-container">
+        <h2>OTP Verification</h2>
+        <p>Enter the 4-digit code sent to your phone</p>
+        <div class="otp-input">
+            <input type="text" maxlength="1" oninput="moveToNext(this, 0)">
+            <input type="text" maxlength="1" oninput="moveToNext(this, 1)">
+            <input type="text" maxlength="1" oninput="moveToNext(this, 2)">
+            <input type="text" maxlength="1" oninput="moveToNext(this, 3)">
+        </div>
+        <button onclick="verifyOTP()">Verify</button>
+        <p class="message" id="message"></p>
+    </div>
+
+    <script>
+        const generatedOTP = "1234"; // Simulated OTP for testing
+        
+        function moveToNext(input, index) {
+            const inputs = document.querySelectorAll('.otp-input input');
+            if (input.value && index < inputs.length - 1) {
+                inputs[index + 1].focus();
+            }
+        }
+
+        function verifyOTP() {
+            const inputs = document.querySelectorAll('.otp-input input');
+            let enteredOTP = "";
+            inputs.forEach(input => enteredOTP += input.value);
+
+            const message = document.getElementById('message');
+            message.style.display = 'block';
+
+            if (enteredOTP === generatedOTP) {
+                message.textContent = 'Verified ✔';
+                message.className = 'message success';
+            } else {
+                message.textContent = 'Invalid OTP. Please try again.';
+                message.className = 'message error';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Scheduling</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: rgb(241, 241, 241);
+        }
+        .appointment-container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            transition: transform 0.3s;
+        }
+        .appointment-container:hover {
+            transform: scale(1.05);
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #0056b3;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border: 2px solid  #0056b3;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        input:focus, select:focus {
+            border-color:  #0056b3;
+            outline: none;
+        }
+        button {
+            background: #0056b3;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background:  #0056b3;
+        }
+        .message {
+            margin-top: 15px;
+            font-weight: bold;
+            display: none;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="appointment-container">
+        <h2>📅 Book an Appointment</h2>
+        <input type="text" id="name" placeholder="Your Name">
+        <input type="datetime-local" id="appointment-time">
+        <select id="appointment-type">
+            <option value="consultation">Consultation</option>
+            <option value="prescription">Prescription Refill</option>
+        </select>
+        <button onclick="scheduleAppointment()">Schedule Appointment</button>
+        <p class="message" id="message"></p>
+    </div>
+
+    <script>
+        function scheduleAppointment() {
+            const name = document.getElementById('name').value;
+            const time = document.getElementById('appointment-time').value;
+            const type = document.getElementById('appointment-type').value;
+            const message = document.getElementById('message');
+
+            if (name && time) {
+                message.textContent = `✅ Appointment for ${name} scheduled for ${new Date(time).toLocaleString()} (${type}). Reminder set!`;
+                message.className = 'message success';
+                message.style.display = 'block';
+                
+                setTimeout(() => {
+                    alert(`🔔 Reminder: Your ${type} appointment is coming up soon!`);
+                }, 5000); // Simulating a notification reminder
+            } else {
+                message.textContent = '⚠️ Please fill in all fields!';
+                message.className = 'message error';
+                message.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

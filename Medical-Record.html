@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Record</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: rgb(241, 241, 241);
+        }
+        .record-container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            transition: transform 0.3s;
+        }
+        .record-container:hover {
+            transform: scale(1.05);
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        .error-message {
+            color: red;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .record-output {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="record-container">
+        <h2>📋 Medical Record</h2>
+        <input type="text" id="patient-name" placeholder="Patient Name">
+        <input type="text" id="age" placeholder="Age">
+        <textarea id="diagnosis" placeholder="Diagnosis..."></textarea>
+        <textarea id="treatment" placeholder="Treatment Plan..."></textarea>
+        <button onclick="saveRecord()">Save Record</button>
+        <p class="error-message" id="error-message"></p>
+        <div id="record-output" class="record-output"></div>
+    </div>
+
+    <script>
+        function saveRecord() {
+            const patientName = document.getElementById('patient-name').value;
+            const age = document.getElementById('age').value;
+            const diagnosis = document.getElementById('diagnosis').value;
+            const treatment = document.getElementById('treatment').value;
+            const errorMessage = document.getElementById('error-message');
+            const outputDiv = document.getElementById('record-output');
+            
+            if (patientName && age && diagnosis && treatment) {
+                errorMessage.textContent = "";
+                outputDiv.style.display = "block";
+                outputDiv.innerHTML = `
+                    <h3>📝 Medical Record</h3>
+                    <p><strong>Patient:</strong> ${patientName}</p>
+                    <p><strong>Age:</strong> ${age}</p>
+                    <p><strong>Diagnosis:</strong> ${diagnosis}</p>
+                    <p><strong>Treatment:</strong> ${treatment}</p>
+                    <button onclick="printRecord()">Print Record</button>
+                `;
+            } else {
+                errorMessage.textContent = "⚠️ Please fill in all fields!";
+            }
+        }
+        
+        function printRecord() {
+            const printContent = document.getElementById('record-output').innerHTML;
+            const newWindow = window.open('', '_blank');
+            newWindow.document.write('<html><head><title>Print Record</title></head><body>' + printContent + '</body></html>');
+            newWindow.document.close();
+            newWindow.print();
+        }
+    </script>
+</body>
+</html>

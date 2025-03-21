@@ -1,0 +1,920 @@
+/* ----- Global Styles ----- */
+:root {
+    /* Colors */
+    --telehealth-blue: #0066cc;
+    --telehealth-darkblue: #004080;
+    --telehealth-lightblue: #e6f0ff;
+    --telehealth-lightgray: #f8f9fa;
+    --gray-900: #1a202c;
+    --gray-800: #2d3748;
+    --gray-700: #4a5568;
+    --gray-600: #718096;
+    --gray-500: #a0aec0;
+    --gray-400: #cbd5e0;
+    --gray-300: #e2e8f0;
+    --gray-200: #edf2f7;
+    --gray-100: #f7fafc;
+    --white: #ffffff;
+    --yellow-400: #f6e05e;
+    
+    /* Font sizes */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 3rem;
+    
+    /* Spacing */
+    --spacing-1: 0.25rem;
+    --spacing-2: 0.5rem;
+    --spacing-3: 0.75rem;
+    --spacing-4: 1rem;
+    --spacing-6: 1.5rem;
+    --spacing-8: 2rem;
+    --spacing-12: 3rem;
+    --spacing-16: 4rem;
+    --spacing-24: 6rem;
+    
+    /* Border radius */
+    --radius-sm: 0.125rem;
+    --radius-md: 0.375rem;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
+    --radius-2xl: 1rem;
+    --radius-full: 9999px;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: var(--text-base);
+    line-height: 1.5;
+    color: var(--gray-800);
+    background-color: var(--telehealth-lightgray);
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-4);
+  }
+  
+  /* ----- Typography ----- */
+  h1, h2, h3, h4, h5, h6 {
+    margin-bottom: var(--spacing-4);
+    line-height: 1.2;
+    font-weight: 700;
+    color: var(--gray-900);
+  }
+  
+  h1 {
+    font-size: var(--text-4xl);
+  }
+  
+  h2 {
+    font-size: var(--text-3xl);
+  }
+  
+  h3 {
+    font-size: var(--text-xl);
+  }
+  
+  p {
+    margin-bottom: var(--spacing-4);
+    color: var(--gray-600);
+  }
+  
+  a {
+    color: var(--telehealth-blue);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    color: var(--telehealth-darkblue);
+  }
+  
+  ul {
+    list-style-type: none;
+  }
+  
+  /* ----- Buttons ----- */
+  .btn-primary, .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.875rem 2rem;
+    font-size: var(--text-base);
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary {
+    background-color: var(--telehealth-blue);
+    color: var(--white);
+    border: none;
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--telehealth-darkblue);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: var(--white);
+  }
+  
+  .btn-secondary {
+    background-color: var(--white);
+    color: var(--telehealth-blue);
+    border: 2px solid var(--telehealth-blue);
+  }
+  
+  .btn-secondary:hover {
+    background-color: var(--telehealth-lightblue);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: var(--telehealth-darkblue);
+  }
+  
+  .cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+  
+  @media (min-width: 640px) {
+    .cta-buttons {
+      flex-direction: row;
+    }
+  }
+  
+  /* ----- Navbar ----- */
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4rem;
+    z-index: 50;
+    background-color: var(--white);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+  }
+  
+  .logo {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--telehealth-darkblue);
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-health {
+    color: var(--telehealth-blue);
+  }
+  
+  .desktop-nav {
+    display: none;
+    align-items: center;
+    gap: var(--spacing-8);
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: var(--spacing-6);
+  }
+  
+  .nav-link {
+    color: var(--gray-700);
+    font-weight: 500;
+    position: relative;
+  }
+  
+  .nav-link:hover, .nav-link.active {
+    color: var(--telehealth-blue);
+  }
+  
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -0.25rem;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--telehealth-blue);
+  }
+  
+  .mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--gray-700);
+    cursor: pointer;
+  }
+  
+  .mobile-menu {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--white);
+    padding: var(--spacing-4);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: top 0.3s ease;
+    opacity: 0;
+  }
+  
+  .mobile-menu.active {
+    top: 4rem;
+    opacity: 1;
+  }
+  
+  .mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+  
+  .mobile-cta {
+    margin-top: var(--spacing-4);
+    width: 100%;
+    text-align: center;
+  }
+  
+  @media (min-width: 768px) {
+    .desktop-nav {
+      display: flex;
+    }
+    
+    .mobile-menu-btn {
+      display: none;
+    }
+  }
+  
+  /* ----- Hero Section ----- */
+  .hero {
+    min-height: 100vh;
+    padding-top: 6rem;
+    padding-bottom: var(--spacing-16);
+    display: flex;
+    align-items: center;
+  }
+  
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+  }
+  
+  .hero-text {
+    text-align: center;
+    max-width: 100%;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 0.3s;
+  }
+  
+  .tag-line {
+    display: inline-block;
+    background-color: var(--telehealth-lightblue);
+    color: var(--telehealth-blue);
+    padding: var(--spacing-1) var(--spacing-4);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    margin-bottom: var(--spacing-2);
+  }
+  
+  .hero-images {
+    position: relative;
+    height: 18rem;
+    width: 100%;
+    opacity: 0;
+    animation: fadeInRight 1s ease forwards;
+    animation-delay: 0.6s;
+  }
+  
+  .img-container {
+    position: absolute;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .img1 {
+    top: 0;
+    left: 5%;
+    width: 36%;
+    height: 12rem;
+  }
+  
+  .img2 {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 36%;
+    height: 16rem;
+    z-index: 2;
+  }
+  
+  .img3 {
+    bottom: 0;
+    right: 5%;
+    width: 36%;
+    height: 12rem;
+  }
+  
+  @media (min-width: 768px) {
+    .hero-content {
+      flex-direction: row;
+      align-items: center;
+    }
+    
+    .hero-text {
+      text-align: left;
+      max-width: 50%;
+    }
+    
+    .hero-images {
+      height: 24rem;
+    }
+  }
+  
+  /* ----- Services Section ----- */
+  .services {
+    background-color: var(--white);
+    padding: var(--spacing-16) 0;
+  }
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--spacing-12);
+  }
+  
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-6);
+  }
+  
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: var(--white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-6);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+  
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+  }
+  
+  .service-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background-color: var(--telehealth-lightblue);
+    color: var(--telehealth-blue);
+    margin-bottom: var(--spacing-4);
+  }
+  
+  @media (min-width: 640px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .services-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  /* ----- Doctors Section ----- */
+  .doctors {
+    padding: var(--spacing-16) 0;
+  }
+  
+  .doctors-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-8);
+  }
+  
+  .doctor-card {
+    background-color: var(--white);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+  
+  .doctor-image {
+    height: 16rem;
+    overflow: hidden;
+  }
+  
+  .doctor-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .doctor-info {
+    padding: var(--spacing-6);
+  }
+  
+  .specialty {
+    color: var(--telehealth-blue);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    margin-bottom: var(--spacing-3);
+  }
+  
+  .description {
+    color: var(--gray-600);
+    font-size: var(--text-sm);
+  }
+  
+  @media (min-width: 768px) {
+    .doctors-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .doctors-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  /* ----- CTA Section ----- */
+  .cta {
+    background-color: var(--telehealth-blue);
+    color: var(--white);
+    padding: var(--spacing-16) 0;
+    text-align: center;
+  }
+  
+  .cta h2 {
+    color: var(--white);
+    margin-bottom: var(--spacing-6);
+  }
+  
+  .cta p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: var(--spacing-8);
+    max-width: 36rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--white);
+    color: var(--telehealth-blue);
+    padding: var(--spacing-3) var(--spacing-8);
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .cta-button:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cta-button svg {
+    margin-left: var(--spacing-2);
+  }
+  
+  /* ----- Footer ----- */
+  footer {
+    background-color: var(--gray-900);
+    color: var(--white);
+    padding: var(--spacing-12) 0;
+  }
+  
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-8);
+  }
+  
+  .footer-col h3 {
+    color: var(--white);
+    margin-bottom: var(--spacing-4);
+    font-size: var(--text-lg);
+  }
+  
+  .footer-col p, .footer-col li {
+    color: var(--gray-400);
+    font-size: var(--text-sm);
+  }
+  
+  .footer-col ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+  
+  .footer-col a {
+    color: var(--gray-400);
+  }
+  
+  .footer-col a:hover {
+    color: var(--white);
+  }
+  
+  .social-icons {
+    display: flex;
+    gap: var(--spacing-4);
+  }
+  
+  .social-icons a {
+    color: var(--gray-400);
+    transition: color 0.3s ease;
+  }
+  
+  .social-icons a:hover {
+    color: var(--white);
+  }
+  
+  .copyright {
+    text-align: center;
+    padding-top: var(--spacing-8);
+    margin-top: var(--spacing-8);
+    border-top: 1px solid var(--gray-800);
+  }
+  
+  .copyright p {
+    color: var(--gray-400);
+    font-size: var(--text-sm);
+    margin-bottom: 0;
+  }
+  
+  @media (min-width: 768px) {
+    .footer-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .footer-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  /* ----- Animations ----- */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease forwards;
+  }
+  
+  /* ----- Landing Page Specific Styles ----- */
+  .landing-page {
+    background-color: var(--telehealth-lightgray);
+  }
+  
+  .landing-hero {
+    min-height: 100vh;
+    padding-top: 6rem;
+    padding-bottom: var(--spacing-16);
+    display: flex;
+    align-items: center;
+  }
+  
+  .landing-hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+  }
+  
+  .landing-hero-text {
+    text-align: center;
+    animation: fadeIn 1s ease forwards;
+  }
+  
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-1);
+    margin-bottom: var(--spacing-4);
+    color: var(--telehealth-blue);
+    font-weight: 500;
+  }
+  
+  .back-link:hover {
+    text-decoration: underline;
+  }
+  
+  .feature-cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    margin-top: var(--spacing-8);
+  }
+  
+  .feature-card {
+    background-color: var(--white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-6);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+  }
+  
+  .feature-card h3 {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-2);
+    font-size: var(--text-lg);
+  }
+  
+  .feature-card p {
+    font-size: var(--text-sm);
+    margin-bottom: 0;
+  }
+  
+  .landing-hero-image {
+    position: relative;
+    height: 20rem;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 0.3s;
+    opacity: 0;
+  }
+  
+  .pulse-circle {
+    position: absolute;
+    border-radius: 50%;
+    background-color: var(--telehealth-blue);
+    opacity: 0.1;
+    animation: pulse 2s infinite;
+  }
+  
+  .pulse-circle.large {
+    width: 15rem;
+    height: 15rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .pulse-circle.small {
+    width: 10rem;
+    height: 10rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-delay: 0.5s;
+    opacity: 0.15;
+  }
+  
+  .landing-hero-image .image-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16rem;
+    height: 20rem;
+    overflow: hidden;
+    border-radius: var(--radius-2xl);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  .landing-hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .features {
+    background-color: var(--white);
+    padding: var(--spacing-16) 0;
+  }
+  
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-8);
+  }
+  
+  .feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background-color: var(--telehealth-lightblue);
+    color: var(--telehealth-blue);
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .landing-cta {
+    background-color: var(--telehealth-blue);
+    color: var(--white);
+    padding: var(--spacing-16) 0;
+    text-align: center;
+  }
+  
+  .landing-cta h2 {
+    color: var(--white);
+    margin-bottom: var(--spacing-6);
+  }
+  
+  .landing-cta p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: var(--spacing-8);
+    max-width: 36rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .testimonial {
+    padding: var(--spacing-16) 0;
+  }
+  
+  .testimonial-card {
+    background-color: var(--white);
+    border-radius: var(--radius-2xl);
+    padding: var(--spacing-8) var(--spacing-12);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+  
+  .testimonial-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-6);
+  }
+  
+  .testimonial-image {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: var(--spacing-4);
+  }
+  
+  .testimonial-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .testimonial-info h3 {
+    margin-bottom: var(--spacing-1);
+    font-size: var(--text-lg);
+  }
+  
+  .testimonial-info p {
+    font-size: var(--text-sm);
+    color: var(--gray-600);
+    margin-bottom: 0;
+  }
+  
+  blockquote {
+    font-size: var(--text-lg);
+    font-style: italic;
+    color: var(--gray-700);
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .testimonial-rating {
+    display: flex;
+    gap: var(--spacing-1);
+  }
+  
+  .star {
+    width: 1.25rem;
+    height: 1.25rem;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .star::before {
+    content: '★';
+    position: absolute;
+    color: var(--yellow-400);
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: translate(-50%, -50%) scale(0.95);
+      opacity: 0.1;
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.2;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(0.95);
+      opacity: 0.1;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .landing-hero-content {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .landing-hero-text {
+      text-align: left;
+      flex: 1;
+      max-width: 50%;
+    }
+    
+    .landing-hero-image {
+      flex: 1;
+    }
+    
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .features-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  

@@ -1,0 +1,48 @@
+<!-- Support Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support</title>
+    <style>
+        body { font-family: 'Poppins', sans-serif; padding: 20px; background: #eef2f3; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); }
+        h1 { text-align: center; color: #28a745; }
+        label { display: block; margin-top: 15px; font-weight: bold; }
+        input, textarea, button { width: 100%; padding: 12px; margin-top: 5px; border-radius: 8px; border: 1px solid #ddd; font-size: 16px; }
+        button { background: #28a745; color: white; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #218838; }
+        a { display: block; text-align: center; margin-top: 15px; color: #28a745; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💬 Support</h1>
+        <form onsubmit="sendSupportMessage(event)">
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+            <label for="message">Your Message:</label>
+            <textarea id="message" placeholder="Describe your issue" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+        <p id="support-status" style="color: green; text-align: center; font-weight: bold;"></p>
+        <a href="Profile.html">⬅ Back to Profile</a>
+    </div>
+    <script>
+        function sendSupportMessage(event) {
+            event.preventDefault();
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+            if (!email.includes("@") || message.trim() === "") {
+                alert("❌ Please enter a valid email and message.");
+                return;
+            }
+            document.getElementById("support-status").textContent = "📩 Support message sent successfully!";
+            setTimeout(() => document.getElementById("support-status").textContent = "", 3000);
+            document.getElementById("email").value = "";
+            document.getElementById("message").value = "";
+        }
+    </script>
+</body>
+</html>

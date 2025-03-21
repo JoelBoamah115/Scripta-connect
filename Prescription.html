@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prescription Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: rgb(241, 241, 241);
+        }
+        .prescription-container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            transition: transform 0.3s;
+        }
+        .prescription-container:hover {
+            transform: scale(1.05);
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        .error-message {
+            color: red;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="prescription-container">
+        <h2>📝Prescription Form</h2>
+        <input type="text" id="patient-name" placeholder="Patient Name">
+        <input type="text" id="doctor-name" placeholder="Doctor Name">
+        <textarea id="prescription-details" placeholder="Enter prescription details..."></textarea>
+        <button onclick="generatePrescription()">Generate Prescription</button>
+        <p class="error-message" id="error-message"></p>
+        <div id="prescription-output" style="display: none; margin-top: 20px; text-align: left;"></div>
+    </div>
+
+    <script>
+        function generatePrescription() {
+            const patientName = document.getElementById('patient-name').value;
+            const doctorName = document.getElementById('doctor-name').value;
+            const prescriptionDetails = document.getElementById('prescription-details').value;
+            const errorMessage = document.getElementById('error-message');
+            const outputDiv = document.getElementById('prescription-output');
+            
+            if (patientName && doctorName && prescriptionDetails) {
+                errorMessage.textContent = "";
+                outputDiv.style.display = "block";
+                outputDiv.innerHTML = `
+                    <h3>📝 Prescription</h3>
+                    <p><strong>Patient:</strong> ${patientName}</p>
+                    <p><strong>Doctor:</strong> ${doctorName}</p>
+                    <p><strong>Details:</strong> ${prescriptionDetails}</p>
+                    <button onclick="printPrescription()">Print Prescription</button>
+                `;
+            } else {
+                errorMessage.textContent = "⚠️ Please fill in all fields!";
+            }
+        }
+        
+        function printPrescription() {
+            const printContent = document.getElementById('prescription-output').innerHTML;
+            const newWindow = window.open('', '_blank');
+            newWindow.document.write('<html><head><title>Print Prescription</title></head><body>' + printContent + '</body></html>');
+            newWindow.document.close();
+            newWindow.print();
+        }
+    </script>
+</body>
+</html>

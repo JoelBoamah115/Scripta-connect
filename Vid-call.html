@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultation Feature</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: rgb(241, 241, 241);
+        }
+        .consultation-container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            transition: transform 0.3s;
+        }
+        .consultation-container:hover {
+            transform: scale(1.05);
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        .video-section {
+            display: none;
+            margin-top: 20px;
+        }
+        .timer {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-top: 10px;
+        }
+        .error-message {
+            color: red;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .mute-button {
+            background: #e67e22;
+        }
+        .end-call-button {
+            background: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="consultation-container">
+        <h2>🩺 Book a Consultation</h2>
+        <input type="text" id="patient-name" placeholder="Your Name">
+        <input type="datetime-local" id="consultation-time" min="">
+        <select id="consultation-type">
+            <option value="video">Video Consultation</option>
+            <option value="phone">Phone Consultation</option>
+        </select>
+        <button onclick="startConsultation()">Start Consultation</button>
+        <p class="error-message" id="error-message"></p>
+        <p class="timer" id="countdown"></p>
+        <div class="video-section" id="videoSection">
+            <h3>Live Video Consultation</h3>
+            <video id="localVideo" autoplay muted style="width: 100%; background: black; border-radius: 10px;"></video>
+            <div class="controls">
+                <button class="mute-button" onclick="toggleMute()">Mute</button>
+                <button class="end-call-button" onclick="endCall()">End Call</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let localStream;
+        let isMuted = false;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const now = new Date().toISOString().slice(0, 16);
+            document.getElementById("consultation-time").min = now;
+        });
+
+        function startConsultation() {
+            const name = document.getElementById('patient-name').value;
+            const time = document.getElementById('consultation-time').value;
+            const type = document.getElementById('consultation-type').value;
+            const countdown = document.getElementById('countdown');
+            const videoSection = document.getElementById('videoSection');
+            const errorMessage = document.getElementById('error-message');
+            
+            if (name && time) {
+                errorMessage.textContent = "";
+                let timeLeft = 10; 
+                countdown.style.display = 'block';
+                const timer = setInterval(() => {
+                    countdown.textContent = `⏳ Consultation starting in ${timeLeft} seconds...`;
+                    timeLeft--;
+                    if (timeLeft < 0) {
+                        clearInterval(timer);
+                        countdown.textContent = "✅ Consultation Started!";
+                        if (type === 'video') {
+                            startVideoCall();
+                        } else {
+                            alert(`📞 Calling ${name} now...`);
+                        }
+                    }
+                }, 1000);
+            } else {
+                errorMessage.textContent = "⚠️ Please fill in all fields!";
+            }
+        }
+
+        function startVideoCall() {
+            const videoSection = document.getElementById('videoSection');
+            videoSection.style.display = 'block';
+            navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+                .then((stream) => {
+                    localStream = stream;
+                    document.getElementById('localVideo').srcObject = stream;
+                })
+                .catch((error) => {
+                    alert('Error accessing webcam: ' + error.message);
+                });
+        }
+
+        function toggleMute() {
+            if (localStream) {
+                localStream.getAudioTracks().forEach(track => track.enabled = isMuted);
+                isMuted = !isMuted;
+                alert(isMuted ? "Call Muted" : "Call Unmuted");
+            }
+        }
+
+        function endCall() {
+            if (localStream) {
+                localStream.getTracks().forEach(track => track.stop());
+            }
+            document.getElementById('videoSection').style.display = 'none';
+            document.getElementById('countdown').textContent = "❌ Call Ended";
+        }
+    </script>
+</body>
+</html>
